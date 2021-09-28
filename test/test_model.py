@@ -1,4 +1,4 @@
 from src.Model import Model
 
-def test():
+def test_model():
   assert(Model.evaluate()[0] == 0.4)
