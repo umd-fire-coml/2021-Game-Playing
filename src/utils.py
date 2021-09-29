@@ -1,4 +1,4 @@
-class utils:
+class Utils:
 
     def __init__(self, env):
         self.env = "placeholder"
