@@ -7,5 +7,5 @@ def preprocessor_benchmark(cfg_path = None):
   ### calls the actual Preprocessor method
   # Preprocessor.preprocessor_start(cfg_path)
   time_end = time.time()
-  print("PLACEHOLDER benchmark time (remember to change commented lines): " + time_start - time_end)
-  return time_start - time_end
+  print("PLACEHOLDER benchmark time (remember to change commented lines): " + str(time_end - time_start))
+  return time_end - time_start
