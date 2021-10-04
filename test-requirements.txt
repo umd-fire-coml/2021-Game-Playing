@@ -1,1 +1,4 @@
 pytest
+TensorFlow 
+numpy 
+matplotlib
