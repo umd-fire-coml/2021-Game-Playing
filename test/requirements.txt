@@ -1,5 +1,5 @@
-python3 -m venv supermariobros-env
-source supermariobros-env/bin/activate
+python3 -m venv gym-supermariobros-env
+source gym-supermariobros-env/bin/activate
 
 # Installation Reqs
 pip install -r requirements.txt
