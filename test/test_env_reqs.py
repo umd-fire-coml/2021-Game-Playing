@@ -8,4 +8,4 @@ def test_numpy():
     assert(true)
 
 def test_matplotlib():
-    assert true()
+    assert (true)
