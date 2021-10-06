@@ -37,6 +37,7 @@ class SuperMarioBros_Dataset:
     def take_step(self, action):
         self.obs, self.reward, self.done, self.info = self.env.step(action)
 
+    # will not be neccessary but kept for now until video works
     def simulate_steps(self, step_count):
         display = Display(visible = 0, size = (400, 300))
         display.start()
