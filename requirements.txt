@@ -1,5 +1,0 @@
-gym_super_mario_bros
-matplotlib
-IPython
-tqdm
-pyvirtualdisplay
