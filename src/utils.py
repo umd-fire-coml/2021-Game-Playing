@@ -7,11 +7,11 @@ from IPython import display as ipythondisplay
 from tqdm import tqdm
 from pyvirtualdisplay import Display
 
-class Utils:
+class SuperMarioBros_Dataset:
 
-    def __init__(self, level):
+    def __init__(self, level, version):
         # add level selection
-        self.env = gym_super_mario_bros.make('SuperMarioBros-1-1-v0')
+        self.env = gym_super_mario_bros.make('SuperMarioBros-{}-{}'.format(level, version))
 
         self.env = JoypadSpace(self.env, SIMPLE_MOVEMENT)
         self.obs
@@ -22,8 +22,13 @@ class Utils:
     def reset_env(self):
         self.env.reset()
 
-    def get_state(self):
-        return self.info
+    # attribute = coins, flag_get, life, score, stage, status, time, world, x_pos, y_pos, 
+    # None to return whole dict containing info
+    def get_state(self, attribute):
+        if attribute == None:
+          return self.info
+        else:
+          return self.info[attribute]
 
     def get_reward(self):
         return self.reward
