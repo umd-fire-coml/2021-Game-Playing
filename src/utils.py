@@ -15,10 +15,10 @@ class SuperMarioBros_Dataset:
         self.env = gym_super_mario_bros.make('SuperMarioBros-{}-{}'.format(level, version))
 
         self.env = JoypadSpace(self.env, SIMPLE_MOVEMENT)
-        self.obs
-        self.reward
-        self.done
-        self.info
+        self.obs = None
+        self.reward = None
+        self.done = None
+        self.info = None
 
     def reset_env(self):
         self.env.reset()
