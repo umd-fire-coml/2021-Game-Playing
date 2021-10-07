@@ -1,6 +1,7 @@
-python3 -m venv gym-supermariobros-env
-source gym-supermariobros-env/bin/activate
-
-# Installation Reqs
-pip install gym-super-mario-bros
-pip install gym pyvirtualdisplay
+gym_super_mario_bros
+matplotlib
+IPython
+tqdm
+pyvirtualdisplay
+TensorFlow 
+numpy

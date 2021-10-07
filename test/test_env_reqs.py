@@ -2,8 +2,20 @@ import requirements.txt
 import test_requirements.txt
 
 def test_tensorflow():
-    assert(tensorflow.__version__() == "2.6.0")
+    assert(tensorflow.__version__ == "2.6.0")
 
 def test_numpy():
-    array = numpy.array([1,2,3])
-    assert(len(array) == 3)
+    assert(numpy.__version__ == "?")
+
+def test_matplotlib():
+    assert(matplotlib.__version__ == ">")
+
+def test_numpy():
+    assert(IPython.__version__ == "?")
+
+def test_tensorflow():
+    assert(tqdm.__version__ == "?")
+
+def test_numpy():
+    assert(pyvirtualdisplay.__version__ == "?")
+
