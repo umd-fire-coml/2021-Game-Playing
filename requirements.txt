@@ -3,5 +3,5 @@ matplotlib
 IPython
 tqdm
 pyvirtualdisplay
-TensorFlow 
+tensorflow 
 numpy
