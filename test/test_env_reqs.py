@@ -9,9 +9,6 @@ def test_numpy():
 def test_matplotlib():
     assert(true)
 
-def test_tensorflow():
-    assert(true)
-
 def test_numpy():
     assert(true)
 
