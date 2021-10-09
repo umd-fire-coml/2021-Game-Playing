@@ -4,11 +4,7 @@ def test_tensorflow():
     assert(tensorflow.__version__ == "2.6.0")
 
 def test_numpy():
-    assert(true)
+    assert(numpy.__version__ == "1.19.0")
 
 def test_matplotlib():
-    assert(true)
-
-def test_numpy():
-    assert(true)
-
+    assert(matplotlib.__version__ == "3.4.3")
