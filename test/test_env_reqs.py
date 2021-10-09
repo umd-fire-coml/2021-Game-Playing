@@ -1,4 +1,7 @@
 import pytest
+import tensorflow
+import numpy
+import matplotlib
 
 def test_tensorflow():
     assert(tensorflow.__version__ == "2.6.0")
