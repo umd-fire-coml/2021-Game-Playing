@@ -4,7 +4,7 @@ import numpy
 import matplotlib
 
 def test_tensorflow():
-    assert(tensorflow.__version__ == "2.6")
+    assert(tensorflow.__version__ == "2.5")
 
 def test_numpy():
     assert(numpy.__version__ == "1.19.0")
