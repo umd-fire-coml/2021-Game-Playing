@@ -4,4 +4,4 @@ IPython
 tqdm
 pyvirtualdisplay
 numpy
-tensorflow
+tensorflow==2.2
