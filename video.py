@@ -9,5 +9,5 @@ class Video:
         done = False
         while not done:
           environment.render(mode = 'rgb_array')
-          action = env.action_space.sample()
+          action = environment.action_space.sample()
           state, reward, done, info = environment.step(action)
