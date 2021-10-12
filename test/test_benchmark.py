@@ -1,4 +1,4 @@
-from preprocessor_benchmark import preprocessor_benchmark  
+from data_utils import preprocessor_benchmark  
 import pytest
 
 def test_benchmark():
