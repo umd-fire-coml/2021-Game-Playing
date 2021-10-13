@@ -1,4 +1,3 @@
-import gym
 from gym.wrappers import Monitor
 
 class Video:
