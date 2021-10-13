@@ -2,4 +2,4 @@ gym
 IPython
 nes_py
 gym_super_mario_bros
-ffmpeg
+imageio-ffmpeg
