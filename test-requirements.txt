@@ -1,5 +1,1 @@
-gym
-nes_py
-gym_super_mario_bros
-imageio-ffmpeg
 pytest
