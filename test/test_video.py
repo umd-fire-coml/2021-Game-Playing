@@ -1,4 +1,4 @@
-from video import Video
+from src.video import Video
 import os.path
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
