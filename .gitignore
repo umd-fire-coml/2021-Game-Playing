@@ -130,3 +130,6 @@ dmypy.json
 
 # Ignore Mac DS_Store files
 .DS_Store
+
+*.mp4
+*.meta.json

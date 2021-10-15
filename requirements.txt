@@ -1,4 +1,7 @@
+gym
+nes_py
 gym_super_mario_bros
+imageio-ffmpeg
 matplotlib==3.4.3
 IPython
 tqdm
