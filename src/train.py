@@ -1,9 +1,9 @@
 '''
 ## Train ##
-# Code to train Deep Q Network on OpenAI Gym environments
+# Adapted from code to train Deep Q Network on OpenAI Gym environments
 @author: Mark Sinton (msinto93@gmail.com) 
 '''
-'^^^should i get rid of this since Ive made a lot of changes or no?'
+
 import os
 import sys
 import argparse
@@ -12,12 +12,12 @@ import tensorflow as tf
 import numpy as np
 import time
 import random
-
-from utils.utils import preprocess_image, reset_env_and_state_buffer
-from utils.experience_replay import ReplayMemory   
-from utils.state_buffer import StateBuffer
-from utils.network import DeepQNetwork
-
+import utils
+''' dont exist yet in git 
+import ReplayMemory
+import StateBuffer
+'''
+import Model
     
 def get_train_args():
     train_params = argparse.ArgumentParser()
@@ -81,27 +81,28 @@ def train(args):
     
     # Create environment
     env = gym_super_mario_bros.make(args.env)
-    num_actions = env.action_space.n
+    num_actions = 7
     
     # Initialise replay memory and state buffer
     replay_mem = ReplayMemory(args)
     state_buf = StateBuffer(args)
     
     # Define input placeholders    
-    state_ph = tf.placeholder(tf.uint8, (None, args.frame_height, args.frame_width, args.frames_per_state))
-    action_ph = tf.placeholder(tf.int32, (None))
-    target_ph = tf.placeholder(tf.float32, (None))
+    #state_ph = tf.placeholder(tf.uint8, (None, args.frame_height, args.frame_width, args.frames_per_state))
+    #action_ph = tf.placeholder(tf.int32, (None))
+    #target_ph = tf.placeholder(tf.float32, (None))
     
     # Instantiate DQN network
-    DQN = DeepQNetwork(num_actions, state_ph, action_ph, target_ph, args.learning_rate, scope='DQN_main')   # Note: One scope cannot be the prefix of another scope (e.g. cannot name this scope 'DQN' and 
+    #DQN = DeepQNetwork(num_actions, state_ph, action_ph, target_ph, args.learning_rate, scope='DQN_main')   # Note: One scope cannot be the prefix of another scope (e.g. cannot name this scope 'DQN' and   
                                                                                                             # target network scope 'DQN_target', as a search for vars in 'DQN' scope will return both networks' vars)
+    DQN = Model(240, 256)
     DQN_predict_op = DQN.predict()
     DQN_train_step_op = DQN.train_step()
     
     # Instantiate DQN target network
-    DQN_target = DeepQNetwork(num_actions, state_ph, scope='DQN_target')
+    #DQN_target = DeepQNetwork(num_actions, state_ph, scope='DQN_target')
     
-    update_target_op = update_target_network('DQN_main', 'DQN_target')
+    #update_target_op = update_target_network('DQN_main', 'DQN_target')
         
     # Create session
     config = tf.ConfigProto(allow_soft_placement=True)
@@ -142,7 +143,7 @@ def train(args):
         sess.run(update_target_op)
 
         
-    ## Begin training
+    ## Begin training # THIS IS WHERE I AM AT LOOKY HERE TIM WHEN YOU GO
                        
     env.reset()
     
@@ -219,7 +220,7 @@ def train(args):
         # Get minibatch from replay mem
         states_batch, actions_batch, rewards_batch, next_states_batch, terminals_batch = replay_mem.getMinibatch()
         # Calculate target by passing next states through the target network and finding max future Q
-        future_Q = sess.run(DQN_target.output, {state_ph:next_states_batch})
+        #future_Q = sess.run(DQN_target.output, {state_ph:next_states_batch})
         max_future_Q = np.max(future_Q, axis=1)
         # Q values of the terminal states is 0 by definition
         max_future_Q[terminals_batch] = 0
