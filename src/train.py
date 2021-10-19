@@ -13,10 +13,8 @@ import numpy as np
 import time
 import random
 import utils
-''' dont exist yet in git 
-import ReplayMemory
+import ReplayMemory # doesn't exist ---------------------------------------------------------
 import StateBuffer
-'''
 import Model
     
 def get_train_args():
@@ -84,19 +82,19 @@ def train(args):
     num_actions = 7
     
     # Initialise replay memory and state buffer
-    replay_mem = ReplayMemory(args)
+    replay_mem = ReplayMemory(args) # don't exist yet ----------------------------------
     state_buf = StateBuffer(args)
     
     # Define input placeholders    
-    #state_ph = tf.placeholder(tf.uint8, (None, args.frame_height, args.frame_width, args.frames_per_state))
-    #action_ph = tf.placeholder(tf.int32, (None))
-    #target_ph = tf.placeholder(tf.float32, (None))
+    state_ph = tf.placeholder(tf.uint8, (None, args.frame_height, args.frame_width, args.frames_per_state))
+    action_ph = tf.placeholder(tf.int32, (None))
+    target_ph = tf.placeholder(tf.float32, (None))
     
     # Instantiate DQN network
     #DQN = DeepQNetwork(num_actions, state_ph, action_ph, target_ph, args.learning_rate, scope='DQN_main')   # Note: One scope cannot be the prefix of another scope (e.g. cannot name this scope 'DQN' and   
                                                                                                             # target network scope 'DQN_target', as a search for vars in 'DQN' scope will return both networks' vars)
     DQN = Model(240, 256)
-    DQN_predict_op = DQN.predict()
+    DQN_predict_op = DQN.predict() #talk to rithvik --------------------------------------------------
     DQN_train_step_op = DQN.train_step()
     
     # Instantiate DQN target network
@@ -143,7 +141,7 @@ def train(args):
         sess.run(update_target_op)
 
         
-    ## Begin training # THIS IS WHERE I AM AT LOOKY HERE TIM WHEN YOU GO
+    ## Begin training 
                        
     env.reset()
     
@@ -152,9 +150,7 @@ def train(args):
     episode_rewards = []
     duration_values = []
 
-    # Initially populate replay memory by taking random actions 
-    sys.stdout.write('\nPopulating replay memory with random actions...\n')   
-    sys.stdout.flush()          
+    # Initially populate replay memory by taking random actions       
     
     for random_step in range(1, args.initial_replay_mem_size+1):
         
@@ -163,21 +159,21 @@ def train(args):
         else:
             env.render(mode='rgb_array')
         
-        action = env.action_space.sample()
+        action = env.action_space.sample() #get an action ------------------------------------------------------
         frame, reward, terminal, _ = env.step(action)
-        frame = preprocess_image(frame, args.frame_width, args.frame_height)
+        frame = preprocess_image(frame, args.frame_width, args.frame_height) #should be function from utils ---------------
         replay_mem.add(action, reward, frame, terminal)
         
         if terminal:
             env.reset()
                         
-        sys.stdout.write('\x1b[2K\rStep {:d}/{:d}'.format(random_step, args.initial_replay_mem_size))
-        sys.stdout.flush() 
+        #sys.stdout.write('\x1b[2K\rStep {:d}/{:d}'.format(random_step, args.initial_replay_mem_size))
+        #sys.stdout.flush() 
     
     # Begin training process         
-    reset_env_and_state_buffer(env, state_buf, args)
-    sys.stdout.write('\n\nTraining...\n\n')   
-    sys.stdout.flush()
+    reset_env_and_state_buffer(env, state_buf, args) #should be function from utils -----------------------------
+    #sys.stdout.write('\n\nTraining...\n\n')   
+    #sys.stdout.flush()
     
     for train_step in range(start_step+1, args.num_steps_train+1):      
         start_time = time.time()  
@@ -202,7 +198,7 @@ def train(args):
                    
             # Take action and store experience
             frame, reward, terminal, _ = env.step(action)
-            frame = preprocess_image(frame, args.frame_width, args.frame_height)
+            frame = preprocess_image(frame, args.frame_width, args.frame_height) # again utils -------------------
             state_buf.add(frame)
             replay_mem.add(action, reward, frame, terminal) 
             episode_reward += reward     
@@ -214,14 +210,14 @@ def train(args):
                 episode_reward = 0
                 ep_steps = 0
                 # Reset environment and state buffer for next episode
-                reset_env_and_state_buffer(env, state_buf, args)                
+                reset_env_and_state_buffer(env, state_buf, args)          #utilsssss   --------------------   
         
         ## Training step    
         # Get minibatch from replay mem
         states_batch, actions_batch, rewards_batch, next_states_batch, terminals_batch = replay_mem.getMinibatch()
         # Calculate target by passing next states through the target network and finding max future Q
         #future_Q = sess.run(DQN_target.output, {state_ph:next_states_batch})
-        max_future_Q = np.max(future_Q, axis=1)
+        max_future_Q = np.max(future_Q, axis=1) #actually this one i don't know if should be utils or not ------------------
         # Q values of the terminal states is 0 by definition
         max_future_Q[terminals_batch] = 0
         targets = rewards_batch + (max_future_Q*args.discount_rate)
@@ -240,15 +236,15 @@ def train(args):
         
         # Update target networks    
         if train_step % args.update_target_step == 0:
-            sess.run(update_target_op)
+            sess.run(update_target_op) # i'm not sure where this comes from--------------------------
         
         # Calculate time per step and display progress to console   
         duration = time.time() - start_time
         duration_values.append(duration)
         ave_duration = sum(duration_values)/float(len(duration_values))
         
-        sys.stdout.write('\x1b[2K\rStep {:d}/{:d} \t ({:.3f} s/step)'.format(train_step, args.num_steps_train, ave_duration))
-        sys.stdout.flush()       
+        #sys.stdout.write('\x1b[2K\rStep {:d}/{:d} \t ({:.3f} s/step)'.format(train_step, args.num_steps_train, ave_duration))
+        #sys.stdout.flush()       
         
         # Save checkpoint       
         if train_step % args.save_ckpt_step == 0:
