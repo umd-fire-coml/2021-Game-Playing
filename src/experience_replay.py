@@ -2,9 +2,9 @@ import numpy as np
 import random
 
 class ReplayMemory:
-    def __init__(self):
-        self.buffer_size = 1000000
-        self.min_buffer_size = 50000
+    def __init__(self, buffer, min_buffer):
+        self.buffer_size = buffer #1000000
+        self.min_buffer_size = min_buffer #50000
         # preallocate memory
         self.actions = np.empty(self.buffer_size, dtype = np.uint8)
         self.rewards = np.empty(self.buffer_size, dtype = np.integer)
