@@ -11,5 +11,6 @@ def test_experience_replay():
         reward = np.random.randint(2)
         terminal = np.random.choice(a=[False, False, False, False, False, False, False, False, True])
         
-        assert(mem.add(action, reward, frame, terminal))
-    assert(mem.getMinibatch())
+        mem.add(action, reward, frame, terminal)
+    batch = mem.getMinibatch
+    assert(batch)
