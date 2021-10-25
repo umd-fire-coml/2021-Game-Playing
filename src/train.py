@@ -12,10 +12,10 @@ import tensorflow as tf
 import numpy as np
 import time
 import random
-import utils
-import ReplayMemory # doesn't exist ---------------------------------------------------------
+import ReplayMemory
 import StateBuffer
 import Model
+import utils
     
 class Train():
 
@@ -90,7 +90,7 @@ class Train():
         #DQN = DeepQNetwork(num_actions, state_ph, action_ph, target_ph, self.learning_rate, scope='DQN_main')   # Note: One scope cannot be the prefix of another scope (e.g. cannot name this scope 'DQN' and   
                                                                                                                 # target network scope 'DQN_target', as a search for vars in 'DQN' scope will return both networks' vars)
         DQN = Model(240, 256)
-        DQN_predict_op = DQN.predict() #talk to rithvik --------------------------------------------------
+        DQN_predict_op = DQN.predict() 
         DQN_train_step_op = DQN.train_step()
         
         # Instantiate DQN target network
