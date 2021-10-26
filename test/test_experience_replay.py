@@ -17,4 +17,4 @@ def test_experience_replay():
     assert(len(batch[0]) == 32)
     assert(len(batch[0][0]) == 240)
     assert(len(batch[0][0][0]) == 256)
-    assert(len(batch[0][0][0][0]) == 4))
+    assert(len(batch[0][0][0][0]) == 4)
