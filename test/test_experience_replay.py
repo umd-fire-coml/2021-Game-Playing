@@ -12,7 +12,7 @@ def test_experience_replay():
         terminal = np.random.choice(a=[False, False, False, False, False, False, False, False, True])
         
         mem.add(action, reward, frame, terminal)
-    batch = mem.getMinibatch
+    batch = mem.getMinibatch()
     assert(len(batch) == 5)
     assert(len(batch[0]) == 32)
     assert(len(batch[0][0]) == 240)
