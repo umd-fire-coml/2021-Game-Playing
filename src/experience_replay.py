@@ -2,22 +2,22 @@ import numpy as np
 import random
 
 class ReplayMemory:
-    def __init__(self, buffer=1000000, min_buffer=50000):
+    def __init__(self, buffer=1000000, min_buffer=50000, height=240, width=256):
         self.buffer_size = buffer
         self.min_buffer_size = min_buffer
         # preallocate memory
         self.actions = np.empty(self.buffer_size, dtype = np.uint8)
         self.rewards = np.empty(self.buffer_size, dtype = np.integer)
-        self.frames = np.empty((240, 256, self.buffer_size), dtype = np.uint8)
+        self.frames = np.empty((height, width, self.buffer_size), dtype = np.uint8)
         self.terminals = np.empty(self.buffer_size, dtype = np.bool)
         self.frames_per_state = 4
-        self.dims = (240, 256)
+        self.dims = (height, width)
         self.batch_size = 32
         self.count = 0
         self.current = 0
         
-        self.states = np.empty((self.batch_size, 240, 256, self.frames_per_state), dtype = np.uint8)
-        self.next_states = np.empty((self.batch_size, 240, 256, self.frames_per_state), dtype = np.uint8)
+        self.states = np.empty((self.batch_size, height, width, self.frames_per_state), dtype = np.uint8)
+        self.next_states = np.empty((self.batch_size, height, width, self.frames_per_state), dtype = np.uint8)
     
 
     def add(self, action, reward, frame, terminal):
