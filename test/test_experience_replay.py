@@ -15,6 +15,3 @@ def test_experience_replay():
     batch = mem.getMinibatch()
     assert(len(batch) == 5)
     assert(batch[0].shape == (32, 240, 256, 4))
-    assert(batch[0][0].shape == (240, 256, 4))
-    assert(batch[0][0][0].shape == (256, 4))
-    assert(batch[0][0][0][0].shape == (4,))
