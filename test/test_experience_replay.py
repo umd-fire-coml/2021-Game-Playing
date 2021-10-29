@@ -13,8 +13,4 @@ def test_experience_replay():
         
         mem.add(action, reward, frame, terminal)
     batch = mem.getMinibatch()
-    assert(len(batch) == 5)
-    assert(len(batch[0]) == 32)
-    assert(len(batch[0][0]) == 240)
-    assert(len(batch[0][0][0]) == 256)
-    assert(len(batch[0][0][0][0]) == 4)
+    assert(batch.shape == (5, 32, 240, 256, 4))
