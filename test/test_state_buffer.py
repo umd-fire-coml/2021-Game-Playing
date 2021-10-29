@@ -17,6 +17,4 @@ def test_state_buffer():
 
         if i == 5:
             buf.reset()
-    assert(len(state) == 240)
-    assert(len(state[0]) == 256)
-    assert(len(state[0][0]) == 4)
+    assert(state.shape == (240, 256, 4))
