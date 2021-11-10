@@ -55,6 +55,21 @@ class Model:
     self.sess.run(tf.global_variables_initializer())
     tf.reset_default_graph()
 
+  def load_ckpt(self):
+    config = tf.ConfigProto(allow_soft_placement=True)
+    config.gpu_options.allow_growth=True
+    sess=tf.Session(config=config)
+    sess.run(tf.global_variables_initializer())
+
+
+    loader=tf.train.Saver()
+    if self.play_args.ckpt_file is not None:
+      ckpt = self.play_args.ckpt_dir + '/' + self.play_args.ckpt_file
+    else:
+      ckpt = tf.train.latest_checkpoint(self.play_args.ckpt_dir)
+    loader.restore(sess, ckpt)
+    print('%s restored.\n\n' % ckpt)
+
   def run_model(self, filename):
 
     state_buf = StateBuffer(self.play_args)
@@ -68,27 +83,44 @@ class Model:
     vid = video_recorder.VideoRecorder(self.env, path=filename)
 
     for ep in range(0, self.play_args.num_eps):
-        reset_env_and_state_buffer(self.env, state_buf, self.play_args)
-        ep_done = False
-        initial_steps = np.random.randint(1, self.play_args.max_initial_random_steps + 1)
-        reward = 0
-        for step in tqdm(range(pself.lay_args.max_ep_length)):
-            screen = self.env.render(mode = 'rgb_array')
-            vid.capture_frame()
-            screens.append(screen)
-            if step < initial_steps:
-                action = self.env.action_space.sample()
-            else:
-                state = np.expand_dims(state_buf.get_state(), 0)
-                action = self.sess.run(self.DQN_predict_op, {state_ph:state})[0]
-            #print(action)
-            frame, r, ep_terminal, _ = self.env.step(action)
-            frame = preprocess_image(frame, 240,
-                                    256)
-            state_buf.add(frame)
-            reward += r
-            if ep_terminal:
-                break
-            
+      reset_env_and_state_buffer(self.env, state_buf, self.play_args)
+      ep_done = False
+      initial_steps = np.random.randint(1, self.play_args.max_initial_random_steps + 1)
+      reward = 0
+      for step in tqdm(range(self.play_args.max_ep_length)):
+        screen = self.env.render(mode = 'rgb_array')
+        vid.capture_frame()
+        screens.append(screen)
+        if step < initial_steps:
+          action = self.env.action_space.sample()
+        else:
+          state = np.expand_dims(state_buf.get_state(), 0)
+          action = self.sess.run(self.DQN_predict_op, {state_ph:state})[0]
+        #print(action)
+        frame, r, ep_terminal, _ = self.env.step(action)
+        frame = preprocess_image(frame, 240,
+                                256)
+        state_buf.add(frame)
+        reward += r
+        if ep_terminal:
+          break
+        
         rewards.append(reward)
+    print("\nAverage Reward {} +- {}".format(np.mean(rewards), np.std(rewards)))
     vid.close()
+
+    def train(self, ckpt):
+      train_args = get_train_args(['--env', 'SuperMarioBros-1-1-v0',
+                             '--num_steps_train', '10000',
+                             '--save_ckpt_step', '1000',
+                             '--ckpt_dir', './ckpts',
+                             '--log_dir', './logs/train',
+                             '--initial_replay_mem_size', '10000',
+                             '--frame_width', '240',
+                             '--frame_height', '256',
+                             '--batch_size', '16',
+                             '--epsilon_step_end', '5000',
+                             '--ckpt_file', ckpt])
+      tf.reset_default_graph()
+
+      train(train_args)
