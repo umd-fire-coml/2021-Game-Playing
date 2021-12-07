@@ -2,8 +2,8 @@
 
 **Product Description**
 
-  Our model learns to play any level of Super Mario Bros. Its architecture is based off of the DQN research paper's model architecture.
-
+  Our model learns to play any level of Super Mario Bros. Its architecture is based off of the DQN research paper's model architecture. More specifically; however, this architecture connects a reinforcement model to a deep neural network. For our RGB input for our model, we took a 256x240 pixel screen capture from our Super Mario Bros emulator and produced a simple action vector of the q values of 7 possible movements for Mario to choose (ex: run right, jump, duck, etc.). Our model then chooses the action with the highest score and turns to the next frame, and continues onward through the level as such. Each action's q score is calculated based on projected reward, where positive factors include getting further into the level, living, and shorter time taken and negative factors include dying or going the wrong way over the x axis; hence, reinforcement learning. Our model then trains on the runs that had the best rewards.
+ 
 
 **Video Demonstration**
 
@@ -17,7 +17,37 @@
 
 **Directory Guide**
 
-  description of every file in our repository
+  .github folder: This folder has the python file that runs all the tests for each github commit.
+  
+  gym-super-mario-bros folder: This folder has all of the code for the Super Mario Bros environment we used through its emulator.
+  
+  src folder: This folder contains all of the source code for building, training, and testing our model as well as setting up the environment.
+  
+  src/Model.py: This file contains the code for the Model. The Model has its constructor, where it creates the model with the right environment, level, and version. It also has three functions. The run_model function simulates the model for a certain number of steps. The load_checkpoint function loads a given checkpoint into the model for training purposes. The train function calls the training code on the model, given the correct arguments.
+  
+  src/data_utils.py: This file benchmarks how long certain runs of the model might take and returns its time.
+  
+  src/experience_replay.py: This file sets up an experience replay for our model, meaning that for each time the model trains it remembers the past several frames of input and learns not just off of one RGB image, but multiple.
+  
+  src/state_buffer.py: This file sets up the state buffer, which remembers past states of the model and rewards made off of those decision paths and compares the current decision to such previous outcomes.
+  
+  src/utils.py: This file contains the code for the utils file. The utils file contains the environment.
+  
+  src/video.py: This file contains the code for giving our model a video output representation of the decisions it chooses to make.
+  
+  src/train.py: This file provides the training script code for the model to train it over a certain number of epochs and save checkpoints throughout given the proper arguments.
+  
+  src/test.py: /* this file does not yet exist */
+  
+  test folder: This folder contains various tests for each of the files in the src folder, to ensure each file works properly and as intended.
+  
+  .gitignore: This file contains a list of commands to ignore.
+  
+  requirements.txt: This text file contains a list of the necessary requirements for our repository.
+  
+  setup.sh: This setup file installs the proper requirements for our repository.
+  
+  test-requirements.txt: This text file contains a list of necessary requirements for testing, which happens just to be pytest.
 
 
 **Environment Setup Instructions**
