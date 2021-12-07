@@ -37,7 +37,7 @@
   
   src/train.py: This file provides the training script code for the model to train it over a certain number of epochs and save checkpoints throughout given the proper arguments.
   
-  src/test.py: /* this file does not yet exist */
+  src/test.py: This file provides the testing script code for our model that takes its weights and runs some tests and examines the rewards of such actions.
   
   test folder: This folder contains various tests for each of the files in the src folder, to ensure each file works properly and as intended.
   
@@ -57,7 +57,13 @@
 
 **Dataset Setup Instructions**
 
-  A list of step by step instructions to download or check the dataset.
+  The "dataset" for our repository is just the precreated environment for our Super Mario Bros game. To install this,
+
+  1. Download the Super Mario Bros gym environment with the command:
+    pip install gym-super-mario-bros
+
+  2. Include this python line in your file:
+    import gym_super_mario_bros
    
 
 **Training Instructions**
