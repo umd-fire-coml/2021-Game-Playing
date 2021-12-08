@@ -1,8 +1,9 @@
 import tensorflow as tf
 import importlib
-from DQN_Atari import play
-from DQN_Atari import train
-from DQN_Atari import test
+
+from DQN_Atari.play
+from DQN_Atari.train
+from DQN_Atari.test
 import numpy as np
 import matplotlib.pyplot as plt
 from IPython import display as ipythondisplay
@@ -25,6 +26,7 @@ import matplotlib.pyplot as plt
 from IPython import display as ipythondisplay
 from tqdm import tqdm
 from pyvirtualdisplay import Display
+
 
 from train import get_train_args
 
