@@ -1,4 +1,4 @@
-from src.data_utils import SuperMarioBros_Dataset
+from src.dataset import SuperMarioBros_Dataset
 
 def test_env_setup():
     env = SuperMarioBros_Dataset("1-1", "v0")
