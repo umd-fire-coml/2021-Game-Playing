@@ -1,9 +1,6 @@
 import tensorflow as tf
 import importlib
 
-import play
-import train
-import test
 import numpy as np
 import matplotlib.pyplot as plt
 from IPython import display as ipythondisplay
