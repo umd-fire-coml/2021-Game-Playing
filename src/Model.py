@@ -11,7 +11,7 @@ from src.train import get_train_args
 from src.test import get_test_args
 from src.play import get_play_args
 from src.state_buffer import StateBuffer
-from utils import preprocess_image, reset_env_and_state_buffer
+from src.utils import preprocess_image, reset_env_and_state_buffer
 import gym
 from gym.wrappers.monitoring import video_recorder
 
@@ -20,7 +20,7 @@ import gym_super_mario_bros
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 
 
-from train import get_train_args
+from src.train import get_train_args
 
 class Model:
 
