@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 from IPython import display as ipythondisplay
 from tqdm import tqdm
 from pyvirtualdisplay import Display
-from network import DeepQNetwork
-from train import get_train_args
-from test import get_test_args
-from play import get_play_args
+from src.network import DeepQNetwork
+from src.train import get_train_args
+from src.test import get_test_args
+from src.play import get_play_args
 from state_buffer import StateBuffer
 from utils import preprocess_image, reset_env_and_state_buffer
 import gym
