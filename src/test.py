@@ -12,10 +12,10 @@ import tensorflow as tf
 import numpy as np
 import scipy.stats as ss
 
-from train import get_train_args
-from utils import preprocess_image, reset_env_and_state_buffer
-from state_buffer import StateBuffer
-from network import DeepQNetwork
+from src.train import get_train_args
+from src.utils import preprocess_image, reset_env_and_state_buffer
+from src.state_buffer import StateBuffer
+from src.network import DeepQNetwork
     
 def get_test_args(train_args):
     test_params = argparse.ArgumentParser()

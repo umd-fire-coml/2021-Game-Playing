@@ -5,7 +5,7 @@
 '''
 
 import tensorflow as tf
-from ops import conv2d, dense, flatten
+from src.ops import conv2d, dense, flatten
 
 class DeepQNetwork:
     def __init__(self, num_actions, state, action=None, target=None, learning_rate=None, scope='DQN'):

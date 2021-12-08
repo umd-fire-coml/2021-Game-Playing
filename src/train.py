@@ -13,10 +13,10 @@ import numpy as np
 import time
 import random
 
-from utils import preprocess_image, reset_env_and_state_buffer
-from experience_replay import ReplayMemory   
-from state_buffer import StateBuffer
-from network import DeepQNetwork
+from src.utils import preprocess_image, reset_env_and_state_buffer
+from src.experience_replay import ReplayMemory   
+from src.state_buffer import StateBuffer
+from src.network import DeepQNetwork
     
 def get_train_args():
     train_params = argparse.ArgumentParser()

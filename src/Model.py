@@ -10,7 +10,7 @@ from src.network import DeepQNetwork
 from src.train import get_train_args
 from src.test import get_test_args
 from src.play import get_play_args
-from state_buffer import StateBuffer
+from src.state_buffer import StateBuffer
 from utils import preprocess_image, reset_env_and_state_buffer
 import gym
 from gym.wrappers.monitoring import video_recorder
