@@ -17,6 +17,17 @@ from DQN_Atari.utils.utils import preprocess_image, reset_env_and_state_buffer
 import gym
 from gym.wrappers.monitoring import video_recorder
 
+from nes_py.wrappers import JoypadSpace
+import gym_super_mario_bros
+from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+import numpy as np
+import matplotlib.pyplot as plt
+from IPython import display as ipythondisplay
+from tqdm import tqdm
+from pyvirtualdisplay import Display
+
+from train import get_train_args
+
 class Model:
 
   def __init__(self, env, level, version):
@@ -24,13 +35,18 @@ class Model:
     importlib.reload(train)
     importlib.reload(play)
 
+    from train import get_train_args
+    from test import get_test_args
+    from play import get_play_args
+
     game_id = 'SuperMarioBros-{}-{}'.format(level, version)
     self.train_args = get_train_args(['--env', game_id, '--frame_width', '240', '--frame_height', '256'])
     self.test_args = get_test_args(self.train_args, ['--env', game_id])
     self.play_args = get_play_args(self.train_args, ['--env', game_id])
 
     self.env = env
-    num_actions = env.action_space.n
+    self.gym_env = self.env.get_gym_env()
+    num_actions = self.env.get_action_space().n
 
     # Define input placeholders
     # state_ph = tf.placeholder(tf.uint8, (None, play_args.frame_height,
@@ -43,10 +59,10 @@ class Model:
     target_ph = tf.placeholder(tf.float32, (None))
     learning_rate_ph = 0.00025
 
-    DQN = DeepQNetwork(num_actions, state_ph, action_ph, target_ph, learning_rate_ph, scope='DQN_main')
+    self.DQN = DeepQNetwork(num_actions, state_ph, action_ph, target_ph, learning_rate_ph, scope='DQN_main')
 
     # DQN = DeepQNetwork(num_actions, state_ph, scope='DQN_main')
-    self.DQN_predict_op = DQN.predict()
+    self.DQN_predict_op = self.DQN.predict()
 
     config = tf.ConfigProto(allow_soft_placement=True)
     config.gpu_options.allow_growth = True
@@ -80,24 +96,24 @@ class Model:
     target_ph = tf.placeholder(tf.float32, (None))
     learning_rate_ph = 0.00025
 
-    vid = video_recorder.VideoRecorder(self.env, path=filename)
+    vid = video_recorder.VideoRecorder(self.gym_env, path=filename)
 
     for ep in range(0, self.play_args.num_eps):
-      reset_env_and_state_buffer(self.env, state_buf, self.play_args)
+      reset_env_and_state_buffer(self.gym_env, state_buf, self.play_args)
       ep_done = False
       initial_steps = np.random.randint(1, self.play_args.max_initial_random_steps + 1)
       reward = 0
       for step in tqdm(range(self.play_args.max_ep_length)):
-        screen = self.env.render(mode = 'rgb_array')
+        screen = self.gym_env.render(mode = 'rgb_array')
         vid.capture_frame()
         screens.append(screen)
         if step < initial_steps:
-          action = self.env.action_space.sample()
+          action = self.gym_env.action_space.sample()
         else:
           state = np.expand_dims(state_buf.get_state(), 0)
-          action = self.sess.run(self.DQN_predict_op, {state_ph:state})[0]
+          action = self.sess.run(self.DQN.predict(), {state_ph:state})[0]
         #print(action)
-        frame, r, ep_terminal, _ = self.env.step(action)
+        frame, r, ep_terminal, _ = self.gym_env.step(action)
         frame = preprocess_image(frame, 240,
                                 256)
         state_buf.add(frame)
@@ -109,18 +125,19 @@ class Model:
     print("\nAverage Reward {} +- {}".format(np.mean(rewards), np.std(rewards)))
     vid.close()
 
-    def train(self, ckpt):
-      train_args = get_train_args(['--env', 'SuperMarioBros-1-1-v0',
-                             '--num_steps_train', '10000',
-                             '--save_ckpt_step', '1000',
-                             '--ckpt_dir', './ckpts',
-                             '--log_dir', './logs/train',
-                             '--initial_replay_mem_size', '10000',
-                             '--frame_width', '240',
-                             '--frame_height', '256',
-                             '--batch_size', '16',
-                             '--epsilon_step_end', '5000',
-                             '--ckpt_file', ckpt])
-      tf.reset_default_graph()
+  def train(self, ckpt):
+    from train import train
+    train_args = get_train_args(['--env', 'SuperMarioBros-1-1-v0',
+                            '--num_steps_train', '10000',
+                            '--save_ckpt_step', '1000',
+                            '--ckpt_dir', './ckpts',
+                            '--log_dir', './logs/train',
+                            '--initial_replay_mem_size', '10000',
+                            '--frame_width', '240',
+                            '--frame_height', '256',
+                            '--batch_size', '16',
+                            '--epsilon_step_end', '5000',
+                            '--ckpt_file', ckpt])
+    tf.reset_default_graph()
 
-      train(train_args)
+    train(train_args)

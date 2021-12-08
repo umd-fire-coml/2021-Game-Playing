@@ -23,8 +23,6 @@ class SuperMarioBros_Dataset:
     def reset_env(self):
         self.env.reset()
 
-    # attribute = coins, flag_get, life, score, stage, status, time, world, x_pos, y_pos, 
-    # None to return whole dict containing info
     def get_state(self, attribute):
         if attribute == None:
           return self.info
@@ -34,7 +32,13 @@ class SuperMarioBros_Dataset:
     def get_reward(self):
         return self.reward
 
-    def take_step(self, action):
+    def get_action_space(self):
+        return self.env.action_space
+
+    def get_gym_env(self):
+        return self.env
+
+    def step(self, action):
         self.obs, self.reward, self.done, self.info = self.env.step(action)
 
     def simulate_steps(self, step_count):
