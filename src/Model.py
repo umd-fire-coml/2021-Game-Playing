@@ -1,9 +1,9 @@
 import tensorflow as tf
 import importlib
 
-from DQN_Atari.play
-from DQN_Atari.train
-from DQN_Atari.test
+import DQN_Atari.play
+import DQN_Atari.train
+import DQN_Atari.test
 import numpy as np
 import matplotlib.pyplot as plt
 from IPython import display as ipythondisplay
