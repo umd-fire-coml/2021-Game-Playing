@@ -1,31 +1,26 @@
 import tensorflow as tf
 import importlib
 
-import DQN_Atari.play
-import DQN_Atari.train
-import DQN_Atari.test
+import play
+import train
+import test
 import numpy as np
 import matplotlib.pyplot as plt
 from IPython import display as ipythondisplay
 from tqdm import tqdm
 from pyvirtualdisplay import Display
-from DQN_Atari.utils.network import DeepQNetwork
-from DQN_Atari.train import get_train_args
-from DQN_Atari.test import get_test_args
-from DQN_Atari.play import get_play_args
-from DQN_Atari.utils.state_buffer import StateBuffer
-from DQN_Atari.utils.utils import preprocess_image, reset_env_and_state_buffer
+from network import DeepQNetwork
+from train import get_train_args
+from test import get_test_args
+from play import get_play_args
+from state_buffer import StateBuffer
+from utils import preprocess_image, reset_env_and_state_buffer
 import gym
 from gym.wrappers.monitoring import video_recorder
 
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
-import numpy as np
-import matplotlib.pyplot as plt
-from IPython import display as ipythondisplay
-from tqdm import tqdm
-from pyvirtualdisplay import Display
 
 
 from train import get_train_args
