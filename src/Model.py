@@ -8,7 +8,7 @@ from tqdm import tqdm
 from pyvirtualdisplay import Display
 from src.network import DeepQNetwork
 from src.train import get_train_args
-from src.test import get_test_args
+from evaluate import get_test_args
 from src.play import get_play_args
 from src.state_buffer import StateBuffer
 from src.utils import preprocess_image, reset_env_and_state_buffer
@@ -26,13 +26,13 @@ class Model:
   def __init__(self, env, level, version):
     import src.play as play
     import src.train as train
-    import src.test as test
-    importlib.reload(test)
+    import evaluate as evaluate
+    importlib.reload(evaluate)
     importlib.reload(train)
     importlib.reload(play)
 
     from src.train import get_train_args
-    from src.test import get_test_args
+    from evaluate import get_test_args
     from src.play import get_play_args
 
     game_id = 'SuperMarioBros-{}-{}'.format(level, version)
