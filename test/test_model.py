@@ -1,6 +1,3 @@
-from src.model import Model
-from src.dataset import SuperMarioBros_Dataset
-
 def test_model_init():
   env = SuperMarioBros_Dataset("1-1", "v0")
   model = Model(env, "1-1", "v0")
