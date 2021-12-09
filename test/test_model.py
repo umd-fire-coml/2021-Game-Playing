@@ -1,6 +1,5 @@
 import pytest
-import src.model
-import src.dataset
+from src.dataset import SuperMarioBros_Dataset
 
 def test_model_init():
   env = SuperMarioBros_Dataset("1-1", "v0")
