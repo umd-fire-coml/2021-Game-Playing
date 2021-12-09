@@ -14,5 +14,4 @@ jobs:
           apt-get install ffmpeg libsm6 libxext6  -y
           pip install -r requirements.txt
           pip install -r test-requirements.txt
-          ls
-          python -m pytest 
+          python -m pytest /__w/2021-Game-Playing/2021-Game-Playing
