@@ -13,16 +13,20 @@ import numpy as np
 import time
 import random
 
+from nes_py.wrappers import JoypadSpace
+import gym_super_mario_bros
+from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+
 from src.utils import preprocess_image, reset_env_and_state_buffer
 from src.experience_replay import ReplayMemory   
 from src.state_buffer import StateBuffer
 from src.network import DeepQNetwork
     
-def get_train_args():
+def get_train_args(args=None):
     train_params = argparse.ArgumentParser()
     
     # Environment parameters
-    train_params.add_argument("--env", type=str, default='BreakoutDeterministic-v4', help="Environment to use (must have RGB image state space and discrete action space)")
+    train_params.add_argument("--env", type=str, default='SuperMarioBros-1-1-v0', help="Environment to use (must have RGB image state space and discrete action space)")
     train_params.add_argument("--render", type=bool, default=False, help="Whether or not to display the environment on the screen during training")
     train_params.add_argument("--random_seed", type=int, default=1234, help="Random seed for reproducability")
     train_params.add_argument("--frame_width", type=int, default=105, help="Frame width after resize.")
@@ -50,7 +54,7 @@ def get_train_args():
     train_params.add_argument("--ckpt_file", type=str, default=None, help="Checkpoint file to load and resume training from (if None, train from scratch)")
     train_params.add_argument("--log_dir", type=str, default='./logs/train', help="Directory for saving logs")
     
-    return train_params.parse_args()
+    return train_params.parse_args(args)
            
     
 def train(args):
@@ -79,7 +83,8 @@ def train(args):
     
     
     # Create environment
-    env = gym.make(args.env)
+    env = gym_super_mario_bros.make(args.env)
+    env = JoypadSpace(env, SIMPLE_MOVEMENT)
     num_actions = env.action_space.n
     
     # Initialise replay memory and state buffer
@@ -110,9 +115,9 @@ def train(args):
     # Add summaries for Tensorboard visualisation
     tf.summary.scalar('Loss', DQN.loss)  
     reward_var = tf.Variable(0.0, trainable=False)
-    tf.summary.scalar("Episode Reward", reward_var)
+    tf.summary.scalar("Episode_Reward", reward_var)
     epsilon_var = tf.Variable(args.epsilon_start, trainable=False)
-    tf.summary.scalar("Exploration Rate", epsilon_var)
+    tf.summary.scalar("Exploration_Rate", epsilon_var)
     summary_op = tf.summary.merge_all() 
         
     # Define saver for saving model ckpts
@@ -191,15 +196,19 @@ def train(args):
             # Use an epsilon-greedy policy to select action
             epsilon = exploration_rate(train_step, args.epsilon_start, args.epsilon_end, args.epsilon_step_end)
             if random.random() < epsilon:
+                #print("random :(")
                 #Choose random action
                 action = env.action_space.sample()
             else:
+                #print("greedy :)")
                 #Choose action with highest Q-value according to network's current policy
                 current_state = np.expand_dims(state_buf.get_state(), 0)
-                action = sess.run(DQN_predict_op, {state_ph:current_state})
+                action = sess.run(DQN_predict_op, {state_ph:current_state})[0]
                    
             # Take action and store experience
+            #print(action)
             frame, reward, terminal, _ = env.step(action)
+      
             frame = preprocess_image(frame, args.frame_width, args.frame_height)
             state_buf.add(frame)
             replay_mem.add(action, reward, frame, terminal) 

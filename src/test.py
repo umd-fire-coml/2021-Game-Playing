@@ -12,12 +12,16 @@ import tensorflow as tf
 import numpy as np
 import scipy.stats as ss
 
+from nes_py.wrappers import JoypadSpace
+import gym_super_mario_bros
+from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+
 from src.train import get_train_args
 from src.utils import preprocess_image, reset_env_and_state_buffer
 from src.state_buffer import StateBuffer
 from src.network import DeepQNetwork
     
-def get_test_args(train_args):
+def get_test_args(train_args, args=None):
     test_params = argparse.ArgumentParser()
     
     # Environment parameters (First 4 params must be same as those used in training)
@@ -40,12 +44,13 @@ def get_test_args(train_args):
     test_params.add_argument("--results_dir", type=str, default='./test_results', help="Directory for saving txt file of results")
     test_params.add_argument("--results_file", type=str, default='results.txt', help="Text file of test results (if None, do not save results)")
     
-    return test_params.parse_args()
+    return test_params.parse_args(args)
 
     
 def test(args):
     # Create environment
-    env = gym.make(args.env)
+    env = gym_super_mario_bros.make(args.env)
+    env = JoypadSpace(env, SIMPLE_MOVEMENT)
     num_actions = env.action_space.n
     
     # Set random seeds for reproducability

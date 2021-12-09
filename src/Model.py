@@ -19,19 +19,21 @@ from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 
-
 from src.train import get_train_args
 
 class Model:
 
   def __init__(self, env, level, version):
+    import src.play as play
+    import src.train as train
+    import src.test as test
     importlib.reload(test)
     importlib.reload(train)
     importlib.reload(play)
 
-    from train import get_train_args
-    from test import get_test_args
-    from play import get_play_args
+    from src.train import get_train_args
+    from src.test import get_test_args
+    from src.play import get_play_args
 
     game_id = 'SuperMarioBros-{}-{}'.format(level, version)
     self.train_args = get_train_args(['--env', game_id, '--frame_width', '240', '--frame_height', '256'])
@@ -119,8 +121,8 @@ class Model:
     print("\nAverage Reward {} +- {}".format(np.mean(rewards), np.std(rewards)))
     vid.close()
 
-  def train(self, ckpt):
-    from train import train
+  def train(self, ckpt, steps):
+    from src.train import train
     train_args = get_train_args(['--env', 'SuperMarioBros-1-1-v0',
                             '--num_steps_train', '10000',
                             '--save_ckpt_step', '1000',

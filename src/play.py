@@ -10,12 +10,16 @@ import gym
 import tensorflow as tf
 import numpy as np
 
+from nes_py.wrappers import JoypadSpace
+import gym_super_mario_bros
+from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+
 from src.train import get_train_args
 from src.utils import preprocess_image, reset_env_and_state_buffer
 from src.state_buffer import StateBuffer
 from src.network import DeepQNetwork
     
-def get_play_args(train_args):
+def get_play_args(train_args, args=None):
     parser = argparse.ArgumentParser()
     
     # Environment parameters (First 4 params must be same as those used in training)
@@ -34,12 +38,13 @@ def get_play_args(train_args):
     parser.add_argument("--ckpt_dir", type=str, default='./ckpts', help="Directory for loading checkpoints")
     parser.add_argument("--ckpt_file", type=str, default=None, help="Checkpoint file to load (if None, load latest ckpt)")
     
-    return parser.parse_args()
+    return parser.parse_args(args)
 
     
 def play(args):
     # Create environment
-    env = gym.make(args.env)
+    env = gym_super_mario_bros.make(args.env)
+    env = JoypadSpace(env, SIMPLE_MOVEMENT)
     num_actions = env.action_space.n
     
     state_buf = StateBuffer(args)
