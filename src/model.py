@@ -8,7 +8,7 @@ from tqdm import tqdm
 from pyvirtualdisplay import Display
 from src.network import DeepQNetwork
 from src.train import get_train_args
-from test import get_test_args
+from src.test import get_test_args
 from src.play import get_play_args
 from src.state_buffer import StateBuffer
 from src.utils import preprocess_image, reset_env_and_state_buffer
