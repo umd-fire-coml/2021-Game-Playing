@@ -133,3 +133,13 @@ dmypy.json
 
 *.mp4
 *.meta.json
+ckpts/model.ckpt-4000.meta
+ckpts/model.ckpt-2000.data-00000-of-00001
+ckpts/model.ckpt-2000.meta
+ckpts/model.ckpt-2000.index
+ckpts/model.ckpt-3000.data-00000-of-00001
+ckpts/checkpoint
+ckpts/model.ckpt-3000.index
+ckpts/model.ckpt-3000.meta
+ckpts/model.ckpt-4000.data-00000-of-00001
+ckpts/model.ckpt-4000.index
