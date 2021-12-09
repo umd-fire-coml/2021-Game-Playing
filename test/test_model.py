@@ -1,5 +1,5 @@
 import os
-os.system('ls -l')
+os.system('ls')
 from src.model import Model
 from src.dataset import SuperMarioBros_Dataset
 
