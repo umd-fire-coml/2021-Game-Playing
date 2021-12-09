@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: run_all_tests
         run: |
-          python3 -m venv supermariobros-env
+          python -m venv supermariobros-env
           source supermariobros-env/bin/activate
           apt-get update
           apt-get install ffmpeg libsm6 libxext6  -y
