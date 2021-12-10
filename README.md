@@ -58,7 +58,7 @@
       
       - pip install -r requirements.txt
       
-      - pip install -r test-requirements.txt
+      - pip install -r requirements-test.txt
 
 
 **Dataset Setup Instructions**
