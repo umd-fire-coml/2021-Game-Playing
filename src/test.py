@@ -1,4 +1,4 @@
-import SuperMarioBros_Dataset from utils
+from utils import SuperMarioBros_Dataset
 
 class ModelEvaluation:
     lvl = 1
