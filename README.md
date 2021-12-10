@@ -10,7 +10,7 @@
 
 **Video Demonstration**
 
-https://drive.google.com/drive/folders/1UH5Jw3CIwAqOhVd9Fhod6FkT06lyCtTD?usp=sharing
+https://youtu.be/ktuhihOnWA4
 
 
 **Colab Notebook**
