@@ -21,5 +21,11 @@ def test_train():
                             '--epsilon_step_end', '5000',
                             '--replay_mem_size', '2000'])
 
-
+def test_evaluation():
+  env = SuperMarioBros_Dataset("1-1", "v0")
+  model = Model(env, "1-1", "v0")
+  model.test(['--env', 'SuperMarioBros-1-1-v0',
+                            '--frame_width', '240',
+                            '--frame_height', '256',
+                            '--frames_per_state', ])
 

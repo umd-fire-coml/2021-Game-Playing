@@ -25,10 +25,10 @@ def get_test_args(train_args, args=None):
     test_params = argparse.ArgumentParser()
     
     # Environment parameters (First 4 params must be same as those used in training)
-    test_params.add_argument("--env", type=str, default=train_args.env, help="Environment to use (must have RGB image state space and discrete action space)")
-    test_params.add_argument("--frame_width", type=int, default=train_args.frame_width, help="Frame width after resize.")
-    test_params.add_argument("--frame_height", type=int, default=train_args.frame_height, help="Frame height after resize.")
-    test_params.add_argument("--frames_per_state", type=int, default=train_args.frames_per_state, help="Sequence of frames which constitutes a single state.")
+    test_params.add_argument("--env", type=str, default='SuperMarioBros-1-1-v0', help="Environment to use (must have RGB image state space and discrete action space)")
+    test_params.add_argument("--frame_width", type=int, default=240, help="Frame width after resize.")
+    test_params.add_argument("--frame_height", type=int, default=256, help="Frame height after resize.")
+    test_params.add_argument("--frames_per_state", type=int, default=4, help="Sequence of frames which constitutes a single state.")
     test_params.add_argument("--render", type=bool, default=False, help="Whether or not to display the environment on the screen during testing")
     test_params.add_argument("--random_seed", type=int, default=4321, help="Random seed for reproducability")
     

@@ -29,8 +29,8 @@ def get_train_args(args=None):
     train_params.add_argument("--env", type=str, default='SuperMarioBros-1-1-v0', help="Environment to use (must have RGB image state space and discrete action space)")
     train_params.add_argument("--render", type=bool, default=False, help="Whether or not to display the environment on the screen during training")
     train_params.add_argument("--random_seed", type=int, default=1234, help="Random seed for reproducability")
-    train_params.add_argument("--frame_width", type=int, default=105, help="Frame width after resize.")
-    train_params.add_argument("--frame_height", type=int, default=80, help="Frame height after resize.")
+    train_params.add_argument("--frame_width", type=int, default=240, help="Frame width after resize.")
+    train_params.add_argument("--frame_height", type=int, default=256, help="Frame height after resize.")
     train_params.add_argument("--frames_per_state", type=int, default=4, help="Sequence of frames which constitutes a single state.")
     
     # Training parameters
