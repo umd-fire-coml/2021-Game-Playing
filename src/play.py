@@ -105,9 +105,3 @@ if  __name__ == '__main__':
     train_args = get_train_args()
     play_args = get_play_args(train_args)
     play(play_args)         
-            
-        
-    
-    
-        
-        

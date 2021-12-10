@@ -121,19 +121,9 @@ class Model:
     print("\nAverage Reward {} +- {}".format(np.mean(rewards), np.std(rewards)))
     vid.close()
 
-  def train(self, ckpt, steps):
+  def train(self, args):
     from src.train import train
-    train_args = get_train_args(['--env', 'SuperMarioBros-1-1-v0',
-                            '--num_steps_train', '10000',
-                            '--save_ckpt_step', '1000',
-                            '--ckpt_dir', './ckpts',
-                            '--log_dir', './logs/train',
-                            '--initial_replay_mem_size', '10000',
-                            '--frame_width', '240',
-                            '--frame_height', '256',
-                            '--batch_size', '16',
-                            '--epsilon_step_end', '5000',
-                            '--ckpt_file', ckpt])
+    train_args = get_train_args(args)
     tf.reset_default_graph()
 
     train(train_args)
