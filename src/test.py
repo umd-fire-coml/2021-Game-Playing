@@ -2,7 +2,7 @@ from src.utils import SuperMarioBros_Dataset
 
 class ModelEvaluation:
     lvl = 1
-    vers = 1
+    vers = 'v1'
     step_ct = 50
     model_thing = SuperMarioBros_Dataset(lvl, vers)
     final_score = 0
