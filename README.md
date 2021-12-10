@@ -1,5 +1,8 @@
 # 2021-Game-Playing
 
+![SI_3DSVC_SuperMarioBros](https://user-images.githubusercontent.com/17547415/145637669-46bfd47b-7c5a-4b74-af5d-49c3c1d0e9f8.jpg)
+
+
 **Product Description**
 
   Our model learns to play any level of Super Mario Bros. Its architecture is based off of the DQN research paper's model architecture. More specifically; however, this architecture connects a reinforcement model to a deep neural network. For our RGB input for our model, we took a 256x240 pixel screen capture from our Super Mario Bros emulator and produced a simple action vector of the q values of 7 possible movements for Mario to choose (ex: run right, jump, duck, etc.). Our model then chooses the action with the highest score and turns to the next frame, and continues onward through the level as such. Each action's q score is calculated based on projected reward, where positive factors include getting further into the level, living, and shorter time taken and negative factors include dying or going the wrong way over the x axis; hence, reinforcement learning. Our model then trains on the runs that had the best rewards.
