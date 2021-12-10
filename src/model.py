@@ -68,18 +68,12 @@ class Model:
     tf.reset_default_graph()
 
   def load_ckpt(self):
-    config = tf.ConfigProto(allow_soft_placement=True)
-    config.gpu_options.allow_growth=True
-    sess=tf.Session(config=config)
-    sess.run(tf.global_variables_initializer())
-
-
     loader=tf.train.Saver()
     if self.play_args.ckpt_file is not None:
       ckpt = self.play_args.ckpt_dir + '/' + self.play_args.ckpt_file
     else:
       ckpt = tf.train.latest_checkpoint(self.play_args.ckpt_dir)
-    loader.restore(sess, ckpt)
+    loader.restore(self.sess, ckpt)
     print('%s restored.\n\n' % ckpt)
 
   def run_model(self, filename):

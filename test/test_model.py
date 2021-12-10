@@ -9,7 +9,7 @@ def test_model_init():
 def test_load_ckpt():
   env = SuperMarioBros_Dataset("1-1", "v0")
   model = Model(env, "1-1", "v0")
-  model.load_ckpt('model.ckpt-4000')
+  model.load_ckpt()
 
 def test_train():
   env = SuperMarioBros_Dataset("1-1", "v0")
@@ -24,7 +24,7 @@ def test_train():
                             '--frame_height', '256',
                             '--batch_size', '16',
                             '--epsilon_step_end', '5000',
-                            '--replay_mem_size', '20000'
+                            '--replay_mem_size', '20000',
                             '--ckpt_file', 'model.ckpt-4000'])
 
 def run_model():
