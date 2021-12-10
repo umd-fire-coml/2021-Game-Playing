@@ -1,61 +1,28 @@
-import nes_py
-from nes_py.wrappers import JoypadSpace
-import gym_super_mario_bros
-from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
-import numpy as np
-import matplotlib.pyplot as plt
-from IPython import display as ipythondisplay
-from tqdm import tqdm
-from pyvirtualdisplay import Display
+'''
+## Utils ##
+@author: Mark Sinton (msinto93@gmail.com) 
+'''
 
-class SuperMarioBros_Dataset:
+import cv2
 
-    def __init__(self, level, version):
-        # add level selection
-        self.env = gym_super_mario_bros.make('SuperMarioBros-{}-{}'.format(level, version))
+def to_greyscale(img):
+    return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
-        self.env = JoypadSpace(self.env, SIMPLE_MOVEMENT)
-        self.obs = None
-        self.reward = None
-        self.done = None
-        self.info = None
+def downsample(img, target_width, target_height):
+    return cv2.resize(img, (target_width, target_height))
 
-    def reset_env(self):
-        self.env.reset()
+def preprocess_image(img, target_width, target_height):
+    # Convert RGB to BGR for cv2
+    img = img[:,:,::-1]
+    return to_greyscale(downsample(img, target_width, target_height))
 
-    # attribute = coins, flag_get, life, score, stage, status, time, world, x_pos, y_pos, 
-    # None to return whole dict containing info
-    def get_state(self, attribute):
-        if attribute == None:
-          return self.info
-        else:
-          return self.info[attribute]
-
-    def get_reward(self):
-        return self.reward
-
-    def take_step(self, action):
-        self.obs, self.reward, self.done, self.info = self.env.step(action)
-
-    def simulate_steps(self, step_count):
-        display = Display(visible = 0, size = (400, 300))
-        display.start()
-        action_meanings = self.env.get_action_meanings()
-        self.env.reset()
-
-        for i in tqdm(range(step_count)):
-          action = 2 # selecting A and right random: env.step(env.action_space.sample())
-          obs, reward, done, info = self.env.step(action)
-          #print(info)
-          print("\nAction: %s" % (action_meanings[action]))
-          print("Reward: {:.2f}".format(reward))
-          screen = self.env.render(mode = 'rgb_array')
-
-          plt.imshow(screen)
-          ipythondisplay.clear_output(wait = True)
-          ipythondisplay.display(plt.gcf())
-
-          if done:
-              break
-        
-        ipythondisplay.clear_output(wait = True)
+def reset_env_and_state_buffer(env, state_buffer, args):
+    # Reset the environment (required each time we reach a terminal state)
+    # Each time we reset the environment we must add the start frame to the state buffer 'frames_per_state' times to fill up the buffer and give us our first state.
+    frame = env.reset()
+    state_buffer.reset()
+    
+    frame = preprocess_image(frame, args.frame_width, args.frame_height)
+    
+    for _ in range(args.frames_per_state):
+        state_buffer.add(frame)    

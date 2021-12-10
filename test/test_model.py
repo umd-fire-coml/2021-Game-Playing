@@ -1,13 +1,23 @@
-from src.Model import Model
+import pytest
+from src.dataset import SuperMarioBros_Dataset
+from src.model import Model
 
 def test_model_init():
-  model = Model(100,50)
-  assert(model.height == 100)
-  assert(model.width == 50)
+  env = SuperMarioBros_Dataset("1-1", "v0")
+  model = Model(env, "1-1", "v0")
 
-def test_model_evaluate():
-  model = Model(100,50)
-  simple_movement = Model.evaluate(Model, [0,0])
-  assert(len(simple_movement) == 7)
-  for i in range(7):
-    assert(simple_movement[i] >= 0 and simple_movement[i] <= 1)
+def test_train():
+  env = SuperMarioBros_Dataset("1-1", "v0")
+  model = Model(env, "1-1", "v0")
+  model.train(['--env', 'SuperMarioBros-1-1-v0',
+                            '--num_steps_train', '100',
+                            '--save_ckpt_step', '1000',
+                            '--ckpt_dir', './ckpts',
+                            '--log_dir', './logs/train',
+                            '--initial_replay_mem_size', '1000',
+                            '--frame_width', '240',
+                            '--frame_height', '256',
+                            '--batch_size', '16',
+                            '--epsilon_step_end', '5000',
+                            '--replay_mem_size', '2000'])
+

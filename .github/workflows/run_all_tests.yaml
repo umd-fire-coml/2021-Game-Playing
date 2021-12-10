@@ -5,11 +5,13 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   RunAllTests:
     runs-on: ubuntu-20.04
-    container: python:3.8.1
+    container: python:3.7.12
     steps:
       - uses: actions/checkout@v2
       - name: run_all_tests
         run: |
+          apt-get update
+          apt-get install ffmpeg libsm6 libxext6  -y
           pip install -r requirements.txt
-          pip install -r test-requirements.txt
-          python -m pytest
+          pip install -r requirements-test.txt
+          python -m pytest /__w/2021-Game-Playing/2021-Game-Playing
