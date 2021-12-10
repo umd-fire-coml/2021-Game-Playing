@@ -1,9 +1,3 @@
-'''
-## State buffer ##
-# A state is made up of multiple frames. StateBuffer maintains the last 'frames_per_state' frames in a buffer to create a state from.
-@author: Mark Sinton (msinto93@gmail.com) 
-'''
-
 import numpy as np
 
 class StateBuffer:

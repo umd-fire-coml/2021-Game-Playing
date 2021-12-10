@@ -1,9 +1,3 @@
-'''
-## Replay Memory ##
-# Adapted from: https://github.com/tambetm/simple_dqn/blob/master/src/replay_memory.py
-# Creates replay memory buffer to add experiences to and sample batches of experiences from
-'''
-
 import numpy as np
 import random
 
