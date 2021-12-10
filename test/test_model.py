@@ -21,7 +21,5 @@ def test_train():
                             '--epsilon_step_end', '5000',
                             '--replay_mem_size', '2000'])
 
-def test_run_model():
-  env = SuperMarioBros_Dataset("1-1", "v0")
-  model = Model(env, "1-1", "v0")
-  
+
+
