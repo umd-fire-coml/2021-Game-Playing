@@ -132,7 +132,12 @@ model.train(['--env', 'SuperMarioBros-1-1-v0',
   4. This should provide you with information about your average reward for your model over a series of test runs
 
 
-https://user-images.githubusercontent.com/17547415/145636305-055a1ec0-8239-4bed-beee-e83fac54ebc0.mp4
+
+
+
+https://user-images.githubusercontent.com/17547415/145636833-fef00dcb-0a3b-4b38-a295-75689c59aa2a.mp4
+
+
 
 
 
