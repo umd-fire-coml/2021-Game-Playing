@@ -122,9 +122,9 @@ class Model:
 
     train(train_args)
 
-  def test(self, args):
+  def test(self, ckpt):
     from src.test import test
-    test_args = get_test_args(args)
+    test_args = get_test_args(['--ckpt_file', ckpt])
     tf.reset_default_graph()
 
     test(test_args)
