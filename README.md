@@ -132,6 +132,10 @@ model.train(['--env', 'SuperMarioBros-1-1-v0',
   4. This should provide you with information about your average reward for your model over a series of test runs
 
 
+https://user-images.githubusercontent.com/17547415/145636305-055a1ec0-8239-4bed-beee-e83fac54ebc0.mp4
+
+
+
 **References:**
 
     [1]Christian Kauten. 2018. Super Mario Bros for OpenAI Gym. GitHub. Retrieved from https://github.com/Kautenja/gym-super-mario-bros 
