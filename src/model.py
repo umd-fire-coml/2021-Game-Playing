@@ -121,3 +121,10 @@ class Model:
     tf.reset_default_graph()
 
     train(train_args)
+
+  def test(self, args):
+    from src.test import test
+    test_args = get_test_args(args)
+    tf.reset_default_graph()
+
+    test(test_args)
