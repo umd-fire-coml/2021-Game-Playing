@@ -58,7 +58,7 @@
       
       - pip install -r requirements.txt
       
-      - pip install -r test-requirements.txt
+      - pip install -r requirements-test.txt
 
 
 **Dataset Setup Instructions**
@@ -120,7 +120,16 @@ model.train(['--env', 'SuperMarioBros-1-1-v0',
 
 **Testing Instructions**
 
-  A list of step by step instructions to test the model and get the predicted results.
+  A list of step by step instructions to test your trained model and get the predicted results.
+  
+  1. Make sure you have your checkpoint files in your checkpoint directory from training. The default directory would be a folder called "ckpts".
+  
+  2. In your main python file that you will run, make sure all the neccessary files are imported from src 
+  
+  3. Instantiate a model object and run model.evaluation(ckpt). The ckpt parameter should be the name of your checkpoint file. For example, a valid call to this 
+     would be model.evaluation('model.ckpt-40000')
+     
+  4. This should provide you with information about your average reward for your model over a series of test runs
 
 
 **References:**
