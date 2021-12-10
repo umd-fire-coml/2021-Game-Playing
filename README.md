@@ -75,6 +75,46 @@
 **Training Instructions**
 
   A list of step by step instructions to get the training started and get the trained weights.
+  
+  1. In your main python file that you will run, make sure all the neccessary files are imported from src 
+  
+  2. Instantiate a model object and run model.train(). Inside of train will be several parameters that need to be passed in
+     as a string. Parameters include:
+     
+Parameters  | Usage
+------------- | -------------
+env  | Environment to use (must be formatted as SuperMarioBros-{world}-{level}-{version})
+render  | Whether or not to display the environment on the screen during training
+random_seed | Random seed for reproducability
+frames_per_state | Sequence of frames which constitutes a single state
+num_steps_train | Number of steps to train for
+train_frequency | Perform training step every N game steps
+max_ep_steps | Maximum number of steps per episode
+batch_size | Maximum size of replay memory buffer
+learning_rate | Model learning rate
+replay_mem_size | Maximum size of replay memory buffer
+initial_replay_mem_size | Initial size of replay memory (populated by random actions) before learning can start
+epsilon_start | Exploration rate at the beginning of training
+epsilon_end | Exploration rate at the end of decay
+epsilon_step_end | After how many steps to stop decaying the exploration rate
+discount_rate | Discount rate (gamma) for future rewards.
+update_target_step | Copy current network parameters to target network every N steps
+save_ckpt_step | Save checkpoint every N steps
+save_log_step | Save logs every N steps
+ckpt_dir | Directory for saving/loading checkpoints
+ckpt_file | Checkpoint file to load and resume training from (if None, train from scratch)
+log_dir | Directory for saving logs
+
+All parameters need to be put in a list. Each parameter should have two elements, with the parameter name preceded by two dashes and then a second element with the parameter value in a string. For example a valid call would be: 
+model.train(['--env', 'SuperMarioBros-1-1-v0',
+                            '--num_steps_train', '100',
+                            '--save_ckpt_step', '1000',
+                            '--ckpt_dir', './ckpts',
+                            '--log_dir', './logs/train',
+                            '--initial_replay_mem_size', '1000',
+                            '--batch_size', '16',
+                            '--epsilon_step_end', '5000',
+                            '--replay_mem_size', '2000'])
 
 
 **Testing Instructions**
