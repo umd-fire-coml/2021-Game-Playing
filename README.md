@@ -133,11 +133,7 @@ model.train(['--env', 'SuperMarioBros-1-1-v0',
 
 
 
-
-
-https://user-images.githubusercontent.com/17547415/145636833-fef00dcb-0a3b-4b38-a295-75689c59aa2a.mp4
-
-
+https://user-images.githubusercontent.com/17547415/145637258-be24c2fc-9fb3-4b87-a0d9-51dbb5366653.mp4
 
 
 
