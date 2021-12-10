@@ -122,7 +122,7 @@ class Model:
 
     train(train_args)
 
-  def test(self, args):
+  def evaluation(self, args):
     from src.test import test
     test_args = get_test_args(args)
     tf.reset_default_graph()
