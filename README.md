@@ -106,6 +106,7 @@ ckpt_file | Checkpoint file to load and resume training from (if None, train fro
 log_dir | Directory for saving logs
 
 All parameters need to be put in a list. Each parameter should have two elements, with the parameter name preceded by two dashes and then a second element with the parameter value in a string. For example a valid call would be: 
+
 model.train(['--env', 'SuperMarioBros-1-1-v0',
                             '--num_steps_train', '100',
                             '--save_ckpt_step', '1000',
